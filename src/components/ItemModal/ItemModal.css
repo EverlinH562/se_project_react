@@ -1,0 +1,60 @@
+.modal__content_type_image{
+    position: relative; 
+    background-color: white;
+    width: 498px;
+    height: 610px;
+    top: -50px;
+    left: 50px;
+    border-radius: 16px;
+    z-index: 1; 
+}
+
+.modal__image-item { 
+    position: absolute; 
+    width: 496px;
+    height: 498px;
+    top: 0px;
+    left: 0px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    z-index: 10; 
+}
+
+.modal__caption{
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-family: Cabinet Grotesk;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    padding:0;
+}
+
+.modal__weather{
+    font-family: Cabinet Grotesk;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    margin-top: 12px;
+    margin-bottom: 32px;
+}
+
+.modal__close-item{
+    background-image: url(../../assets/imageClose.svg);
+    border: none;
+    background-color: transparent; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    right: -5px;
+    position: absolute;
+    top: 16px; 
+    left: 460px; 
+    z-index: 20; 
+}
+
+.modal__footer{
+    margin-top:490px;
+}
