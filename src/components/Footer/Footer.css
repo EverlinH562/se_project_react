@@ -1,12 +1,18 @@
-.footer__content{
+.footer__content {
     display: flex;
-    justify-content: space-between;
-    margin: 32px 40px 28px;
-    font-family: Cabinet Grotesk;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0%;
-    text-align: right;
-    vertical-align: bottom;
-}
+  max-width: 1360px;  
+  justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    padding: 0 20px;
+  }
+  
+  .footer__content-name {
+    margin-left: 100px;
+    padding-left: 10px;
+  }
+  
+  .footer__content-year {
+    margin-top: 0px;
+    margin-left: 20px;
+  }
