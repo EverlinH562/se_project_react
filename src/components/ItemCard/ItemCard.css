@@ -1,60 +1,39 @@
 .card {
-    border-radius: 15px;
-    width: 323px;
-    height: 325px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .card__name {
-    position: absolute;
-    top: 15px;
-    margin: 0;
-    font-family: "Cabinet Grotesk", sans-serif;
-    font-weight: 300;
-    font-size: 26px;
-    line-height: 1;
-    background-color: #ffffff;
-    width: auto;
-    padding: 4px 12px;
-    height: 24px;
-    gap: 0px;
-    border-radius: 4px;
-    opacity: .9; 
-  }
-  
-  .cards__list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    gap: 21px;
-  }
-  
-  .card__image {
-    width: 100%;
-    border-radius: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-  
-  @media screen and (max-width: 380px) {
-    .card {
-      position: relative;
-      width: 162px;
-      height: 162px;
-      margin-top: 20px;
-    }
-  
-    .card__image {
-      width: 162px;
-      height: 162px;
-      object-fit: cover;
-    }
-  }
+  align-items: center;
+  display: flex;
+  max-width: 325px;
+  max-height: 328px;
+  position: relative;
+  cursor: pointer;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  background-image: url(../../assets/closeIconGrey.svg) no-repeat;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 0;
+}
+
+.card__name {
+  max-width: 73px;
+  max-height: 24px;
+  position: absolute;
+  margin: 0;
+  background-color: white;
+  font-family: "Cabinet Grotesk";
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  top: 15px;
+  gap: 0;
+  opacity: 80%;
+}
+.card__image {
+  max-width: 325px;
+  max-height: 328px;
+  border: 1px;
+  border-color: black;
+  border-radius: 20px;
+  object-fit: cover;
+}

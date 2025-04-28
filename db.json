@@ -83,6 +83,60 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "elmo",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 17
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 18
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 19
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 20
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 21
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 22
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 23
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 24
+    },
+    {
+      "name": "Bessie Colemangdfg",
+      "imageUrl": "https://joliexnoire.com/cdn/shop/products/all-over-print-womens-athletic-short-shorts-white-front-60bb318e76bab.jpg?v=1622880659",
+      "weather": "cold",
+      "_id": 25
     }
   ]
 }

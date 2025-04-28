@@ -1,4 +1,5 @@
 const baseUrl = "http://localhost:3001";
+
 const request = (url, options) => {
   return fetch(url, {
     headers: {
@@ -9,11 +10,13 @@ const request = (url, options) => {
 };
 
 const handleServerResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Error; ${res.status}`);
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
 function getItems() {
-  return request(`${baseUrl}/items`);
+  return fetch(`${baseUrl}/items`).then((res) => {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  });
 }
 
 function addItem({ name, imageUrl, weather }) {
@@ -28,6 +31,5 @@ function deleteItem(itemId) {
     method: "DELETE",
   });
 }
-
 
 export { getItems, addItem, deleteItem, handleServerResponse };

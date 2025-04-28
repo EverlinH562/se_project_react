@@ -13,7 +13,7 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import { defaultClothingItems } from "../../utils/constants.js";
-import { getItems, deleteItem } from "../../utils/api";
+import { getItems, deleteItem, addItem } from "../../utils/api"; 
 
 
 
@@ -26,7 +26,7 @@ function App() {
     isDay: false,
   });
 
-  const [clothingItems, setClothingItems ] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems ] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const[currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -46,15 +46,23 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemModalSubmit = ({name, imageUrl, weather}) => {
-    const newId = Math.max(...clothingItems.map((item) =>item._id)) +1;
-    setClothingItems((prevItems)=>[{name, link: imageUrl, weather, _id: newId}, ...prevItems]);
-    closeModal();
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    addItem({ name, imageUrl, weather })
+      .then((savedItem) => {
+        setClothingItems((prevItems) => [{ 
+          ...savedItem, 
+          link: savedItem.link || savedItem.imageUrl,
+          _id: savedItem._id || savedItem.id 
+        }, ...prevItems]);
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Failed to add item:", err);
+      });
   };
   
   const handleCardDelete = () => {
     if (!selectedCard._id || typeof selectedCard._id !== "string") {
-      // Probably mock data, just remove it locally
       setClothingItems((prevItems) =>
         prevItems.filter((item) => item._id !== selectedCard._id)
       );
@@ -81,11 +89,30 @@ function App() {
       .catch(console.error);
     }, []);
 
-  useEffect(() => {
-    getItems().then((data) => {
-      setClothingItems(data);
-    }).catch(console.error);
-  }, []); 
+    useEffect(() => {
+      const savedItems = JSON.parse(localStorage.getItem("clothingItems"));
+      if (savedItems && savedItems.length > 0) {
+        setClothingItems(savedItems);
+      } else {
+        getItems()
+          .then((data) => {
+            const transformed = data.map((item) => ({
+              ...item,
+              _id: item.id || item._id,
+              link: item.link || item.imageUrl,
+            }));
+            console.log("Transformed clothing items:", transformed); 
+            setClothingItems(transformed);
+          })
+          .catch(console.error);
+      }
+    }, []);
+
+    useEffect(() => {
+      if (clothingItems.length > 0) {
+        localStorage.setItem("clothingItems", JSON.stringify(clothingItems));
+      }
+    }, [clothingItems]);
 
  
 
@@ -98,9 +125,15 @@ function App() {
             <Route path="/" element={<Main 
              weatherData={weatherData} 
              handleCardClick={handleCardClick}
-            clothingItems={clothingItems}
+             clothingItems={clothingItems}
             />} />
-            <Route path="/profile" element={<Profile onCardClick={handleCardClick}/>} />
+            <Route path="/profile" element={
+          <Profile 
+            clothingItems={clothingItems}
+            onCardClick={handleCardClick}
+            onAddClick={handleAddClick}  
+           />} 
+          />
          </Routes>
         
       

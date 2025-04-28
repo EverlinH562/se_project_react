@@ -27,7 +27,7 @@ export default function AddItemModal({onClose, isOpen, onAddItemModalSubmit}){
         setImageUrl("");
         setWeather("");
     };
-
+    
 
     return (
         <ModalWithForm
@@ -38,32 +38,30 @@ export default function AddItemModal({onClose, isOpen, onAddItemModalSubmit}){
         onSubmit={handleSubmit}
       >
         <label htmlFor="name" className="modal__label">
-          Name{" "}
-          <input
-            type="text"
-            className="modal__input"
-            id="name"
-            placeholder="Name"
-            required
-            minLength="1"
-            maxLength="30"
-            onChange={handleNameChange}
-            value={name}
-          />
-        </label>
-        <label htmlFor="imageUrl" className="modal__label">
-          Image
-          <input
-            type="url"
-            name="link"
-            className="modal__input"
-            id="imageUrl"
-            placeholder="Image Url"
-            required
-            onChange={handleImageUrlChange}
-            value={imageUrl}
-          />
-        </label>
+        Name
+        <input
+          type="text"
+          name="name"
+          className="modal__input"
+          id="name"
+          placeholder="Name"
+          onChange={handleNameChange}
+          value={name}
+        />
+      </label>
+      <label htmlFor="imageUrl" className="modal__label">
+        {" "}
+        Image
+        <input
+          type="url"
+          className="modal__input"
+          id="imageUrl"
+          placeholder="Image URL"
+          onChange={handleImageUrlChange}
+          value={imageUrl}
+        />
+      </label>
+
         <fieldset className="modal__radio-buttons">
           <legend className="modal__legend">Select the weather type:</legend>
           <label htmlFor="hot" className="modal__label modal__label_type_radio">

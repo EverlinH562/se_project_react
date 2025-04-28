@@ -1,124 +1,60 @@
-.header{
-    display: flex;
-    align-items: center;
-    margin: 32px 40px 28px;
-}
-
-.header__logo{
-   width: 89px;
-   height: 40px; 
-   margin-right: 24px;
-}
-
-.header__date-and-location{
-    margin: 0;
-    font-family: CabinetGrotesk-Light;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0%;
-    height: 24px;
-    width: 160px;
-}
-
-.header__add-clothes-btn{
-    margin: 0 20px 0 auto;
-    font-family: CabinetGrotesk-Light;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    width: 116px;
-    height:24px;
-    border: none;
-    padding:0;
-}
-
-.header__container{
+.header {
   display: flex;
   align-items: center;
+  margin: 32px 40px 28px;
+  justify-content: space-between; 
 }
 
-.header__user-container{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 5px;
+.header__logo {
+  width: 89px;
+  height: 40px;
+  margin-right: 24px;
 }
 
-.header__avatar{
-    width: 40px;
-    height: 40px;
-    left: 1320px;
-    border-width: 1px;
+.header__date-and-location {
+  margin: 0;
+  font-family: CabinetGrotesk-Light;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  height: 24px;
 }
 
-.header__username{
-    margin:0;
-    font-family: CabinetGrotesk-Light;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 100%;
-    width: 157px;
-    height: 25px;
-    top: 8px;
-    left: 1151px;
+.header__add-clothes-btn {
+  margin: 0 20px 0 auto;
+  font-family: CabinetGrotesk-Light;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  border: none;
+  padding: 0;
 }
 
-.header__link{
-    text-decoration: none;
-    color:#000;
+.header__container {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
 }
 
-@media screen and (max-width: 768px) {
-    .header {
-      position: relative;
-      height: 44px;
-      padding: 28px;
-      justify-content: space-between;
-    }
-  
-    .header__container{
-     order: 2;
-    }
-    .header__menu-button {
-     order: 3;
-      display: block;
-    }
-  
-    .header__navigation {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      z-index: 1000;
-      width: 100%;
-      background: white;
-      flex-direction: column;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      padding: 20px 0;
-      gap: 20px;
-    }
-  
-    .header__navigation--active {
-      transform: translateX(0);
-    }
-  
-    .header__container {
-      max-width: 50%;
-    }
-  }
-  
-  @media screen and (max-width: 512px) {
-    .header {
-      padding: 14px;  /* Smooth transition between larger and smaller screens */
-    }
-  }
-  
-  
-  @media screen and (max-width: 380px){
-   .header {
-    padding: 12px;
-   }
-  
-  }
+.header__user-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
+.header__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; 
+  object-fit: cover; 
+  border: 1px solid #000;
+}
+
+.header__username {
+  margin: 0;
+  font-family: CabinetGrotesk-Light;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
