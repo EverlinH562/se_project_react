@@ -40,6 +40,17 @@
     z-index: 10; 
 }
 
+.modal__image {
+    background: url(../../assets/imageClose.svg) center no-repeat;
+    display: flex;
+    gap: 0px;
+    align-items: center;
+    min-height: 490px;
+    max-width: 498px;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+  }
+
 .modal__caption{
     margin-top: 20px;
     margin-bottom: 0;
@@ -59,20 +70,6 @@
     letter-spacing: 0%;
     margin-top: 12px;
     margin-bottom: 32px;
-}
-
-.modal__close-item{
-    background-image: url(../../assets/imageClose.svg);
-    border: none;
-    background-color: transparent; 
-    background-repeat: no-repeat;
-    width: 16px;
-    height: 16px;
-    right: -5px;
-    position: absolute;
-    top: 16px; 
-    left: 460px; 
-    z-index: 20; 
 }
 
 .modal__footer{

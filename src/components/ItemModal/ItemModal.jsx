@@ -1,11 +1,6 @@
 import "./ItemModal.css";
 
-function ItemModal({
-  activeModal,
-  onClose,
-  card,
-  onDelete
-}) {
+function ItemModal({ activeModal, onClose, card, onDelete }) {
   if (!card) return null;
 
   return (
@@ -28,7 +23,7 @@ function ItemModal({
               Delete Item
             </button>
           </div>
-          
+
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>
       </div>

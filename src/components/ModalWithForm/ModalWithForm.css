@@ -27,9 +27,10 @@
 
 .modal__close{
     position: absolute;
-    top:230px;
-    right:28px;
+    top: 230px;
+    right: 23px;
     background-image: url(../../assets/closebtn.svg);
+    background-size: cover;
     border: none;
     background-color: transparent;
     background-repeat: no-repeat;
