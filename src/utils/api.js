@@ -30,7 +30,7 @@ function deleteItem(_id) {
   return request(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-  }).then(handleServerResponse);
+  });
 }
 
 export { getItems, addItem, deleteItem, handleServerResponse };

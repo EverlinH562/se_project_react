@@ -60,14 +60,8 @@ function App() {
         console.error("Failed to add item:", err);
       });
   };
-  
+
   const handleCardDelete = () => {
-      setClothingItems((prevItems) =>
-        prevItems.filter((item) => item._id !== selectedCard._id)
-      );
-      closeModal();
-      return;
-  
     deleteItem(selectedCard._id)
       .then(() => {
         setClothingItems((prevItems) =>
@@ -90,13 +84,7 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        console.log("Fetched items:", data); 
-        const transformed = data.map((item) => ({
-          ...item,
-          _id: item._id,
-          link: item.link || item.imageUrl,
-        }));
-        setClothingItems(transformed);
+        setClothingItems(data);
       })
       .catch(console.error);
   }, []);
