@@ -8,7 +8,7 @@ import Main from "../Main/Main.jsx";
 import Footer from "../Footer/Footer.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Profile from "../Profile/Profile.jsx";
-import Sidebar from "../SideBar/SideBar.jsx";
+
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
@@ -90,12 +90,13 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
+        console.log("Fetched items:", data); 
         const transformed = data.map((item) => ({
           ...item,
-          _id: item._id || item.id, 
+          _id: item._id,
           link: item.link || item.imageUrl,
         }));
-        setClothingItems(transformed); 
+        setClothingItems(transformed);
       })
       .catch(console.error);
   }, []);
