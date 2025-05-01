@@ -12,7 +12,6 @@ import Sidebar from "../SideBar/SideBar.jsx";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
-import { defaultClothingItems } from "../../utils/constants.js";
 import { getItems, deleteItem, addItem } from "../../utils/api";
 
 function App() {
@@ -63,13 +62,11 @@ function App() {
   };
   
   const handleCardDelete = () => {
-    if (!selectedCard._id || typeof selectedCard._id !== "string") {
       setClothingItems((prevItems) =>
         prevItems.filter((item) => item._id !== selectedCard._id)
       );
       closeModal();
       return;
-    }
   
     deleteItem(selectedCard._id)
       .then(() => {
@@ -95,10 +92,10 @@ function App() {
       .then((data) => {
         const transformed = data.map((item) => ({
           ...item,
-          _id: item.id || item._id, // Just in case the API returns differently
-          link: item.link || item.imageUrl, // Similarly
+          _id: item._id || item.id, 
+          link: item.link || item.imageUrl,
         }));
-        setClothingItems(transformed); // Set the fetched items to the state
+        setClothingItems(transformed); 
       })
       .catch(console.error);
   }, []);

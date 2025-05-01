@@ -26,10 +26,11 @@ function addItem({ name, imageUrl, weather }) {
   });
 }
 
-function deleteItem(itemId) {
-  return request(`${baseUrl}/items/${itemId}`, {
+function deleteItem(id) {
+  return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
-  });
+    headers: { "Content-Type": "application/json" },
+  }).then(handleServerResponse);
 }
 
 export { getItems, addItem, deleteItem, handleServerResponse };

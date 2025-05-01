@@ -25,9 +25,9 @@
     margin-bottom: 24px;;
 }
 
-.modal__close{
-    position: absolute;
-    top: 230px;
+.modal__close-btn {
+   position: absolute;
+    top: 23px;
     right: 23px;
     background-image: url(../../assets/closebtn.svg);
     background-size: cover;
@@ -36,7 +36,7 @@
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
-}
+  }
 
 .modal__image {
     height: 822px;
@@ -56,7 +56,19 @@
     box-sizing: border-box;
     width: 100%;
   }
-  
+
+  .modal__close{
+    position: absolute;
+    top: 230px;
+    right: 23px;
+    background-image: url(../../assets/closebtn.svg);
+    background-size: cover;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}  
 
 .modal__content {
   width: 375px;
