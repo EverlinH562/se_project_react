@@ -1,14 +1,35 @@
 import "./Header.css";
 import logo from "../../assets/Logo.svg";
-import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({ handleAddClick, weatherData, loggedIn, setActiveModal }) {
+  const currentUser = useContext(CurrentUserContext);
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
+  const renderAvatar = () => {
+    if (currentUser?.avatar) {
+      return (
+        <img
+          src={currentUser.avatar}
+          alt="User Avatar"
+          className="header__avatar"
+        />
+      );
+    } else if (currentUser?.name) {
+      return (
+        <div className="header__avatar-placeholder">
+          {currentUser.name.charAt(0).toUpperCase()}
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <header className="header">
@@ -29,12 +50,30 @@ function Header({ handleAddClick, weatherData }) {
       >
         + Add clothes
       </button>
-      <Link to="/profile" className="header__link">
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegegne</p>
-          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
-        </div>
-      </Link>
+      {loggedIn ? (
+  <Link to="/profile" className="header__link">
+    <div className="header__user-container">
+      <p className="header__username">{currentUser?.name}</p>
+      {renderAvatar()}
+    </div>
+  </Link>
+) : (
+  <div className="header__auth-links">
+    <button
+      className="header__auth-btn"
+      onClick={() => setActiveModal("login")}
+    >
+      Log In
+    </button>
+    <button
+      className="header__auth-btn"
+      onClick={() => setActiveModal("register")}
+    >
+      Sign Up
+    </button>
+  </div>
+)}
+      
     </header>
   );
 }
