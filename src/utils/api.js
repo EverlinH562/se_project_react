@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3001";
 
-const handleServerResponse = (res) => {
+ const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
@@ -14,11 +14,11 @@ const request = (url, options = {}) => {
   }).then(handleServerResponse);
 };
 
-export const getItems = () => {
+const getItems = () => {
   return fetch(`${baseUrl}/items`).then(handleServerResponse);
 };
 
-export const addItem = ({ name, imageUrl, weather }, token) => {
+const addItem = ({ name, imageUrl, weather }, token) => {
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -28,8 +28,7 @@ export const addItem = ({ name, imageUrl, weather }, token) => {
   });
 };
 
-
-export const deleteItem = (itemId, token) => {
+const deleteItem = (itemId, token) => {
   return request(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
     headers: {
@@ -38,21 +37,21 @@ export const deleteItem = (itemId, token) => {
   });
 };
 
-export const register = ({ email, password, name }) => {
+const register = ({ email, password, name }) => {
   return request(`${baseUrl}/signup`, {
     method: "POST",
     body: JSON.stringify({ email, password, name }),
   });
 };
 
-export const authorize = ({ email, password }) => {
+const authorize = ({ email, password }) => {
   return request(`${baseUrl}/signin`, {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
 };
 
-export const updateUser = ({ name, avatar }, token) => {
+const updateUser = ({ name, avatar }, token) => {
   return request(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
@@ -62,7 +61,7 @@ export const updateUser = ({ name, avatar }, token) => {
   });
 };
 
-export const addCardLike = (id, token) => {
+const addCardLike = (id, token) => {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
     headers: {
@@ -71,11 +70,23 @@ export const addCardLike = (id, token) => {
   }).then(handleServerResponse);
 };
 
-export const removeCardLike = (id, token) => {
+const removeCardLike = (id, token) => {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }).then(handleServerResponse);
+};
+
+export {
+  getItems,
+  addItem,
+  deleteItem,
+  register,
+  authorize,
+  updateUser,
+  addCardLike,
+  removeCardLike,
+  handleServerResponse,
 };
