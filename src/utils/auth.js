@@ -1,3 +1,5 @@
+import { handleServerResponse } from './api';
+
 const baseUrl = "http://localhost:3001"; 
 
 export const signup = ({ name, avatar, email, password }) => {
@@ -5,7 +7,7 @@ export const signup = ({ name, avatar, email, password }) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, avatar, email, password }),
-  }).then(handleResponse);
+  }).then(handleServerResponse);
 };
 
 export const signin = ({ email, password }) => {
@@ -13,7 +15,7 @@ export const signin = ({ email, password }) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
-  }).then(handleResponse);
+  }).then(handleServerResponse);
 };
 
 export const getUserInfo = (token) => {
@@ -23,5 +25,5 @@ export const getUserInfo = (token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then(handleResponse);
+  }).then(handleServerResponse);
 };

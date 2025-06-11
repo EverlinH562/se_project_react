@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { coordinates, APIkey } from "../../utils/constants.js";
 import { addCardLike, removeCardLike } from "../../utils/api";
 
-
 import "./App.css";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
@@ -92,19 +91,17 @@ function App() {
       .catch(console.error);
   };
 
-  const handleRegister = ({ email, password, name }) => {
-    register({ email, password, name })
-      .then(() => handleLogin({ email, password }))
-      .catch((err) => console.error("Registration failed:", err));
-  };
-
+  const handleRegister = ({ email, password, name, avatar }) => {
+  register({ email, password, name, avatar })
+    .then(() => handleLogin({ email, password }))
+    .catch((err) => console.error("Registration failed:", err));
+};
   const handleLogin = ({ email, password }) => {
     authorize({ email, password })
       .then((res) => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
-          setIsLoggedIn(true);
           closeModal();
         }
       })
@@ -114,7 +111,6 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
-    setIsLoggedIn(false);
     setCurrentUser(null);
   };
 
@@ -133,11 +129,22 @@ function App() {
     .catch((err) => console.log("Error handling like:", err));
 };
 
-  useEffect(() => {
-    getWeather(coordinates, APIkey)
-      .then((data) => setWeatherData(filterWeatherData(data)))
-      .catch(console.error);
-  }, []);
+ useEffect(() => {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const coords = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+      };
+      getWeather(coords, APIkey)
+        .then((data) => setWeatherData(filterWeatherData(data)))
+        .catch(console.error);
+    },
+    (error) => {
+      console.error("Error getting location:", error);
+    }
+  );
+}, []);
 
   useEffect(() => {
     getItems()

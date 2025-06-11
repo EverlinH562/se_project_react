@@ -1,9 +1,14 @@
 import { handleServerResponse } from "./api";
 
-export const getWeather = ({ latitude, longitude }, APIkey) => {
-  return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
-  ).then(handleServerResponse);
+export const getWeather = (coordinates, APIkey) => {
+  const { lat, lon } = coordinates;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${APIkey}`;
+  return fetch(url).then((res) => {
+    if (!res.ok) {
+      throw new Error(`Weather API error: ${res.status}`);
+    }
+    return res.json();
+  });
 };
 
 export const filterWeatherData = (data) => {
@@ -30,3 +35,4 @@ const getWeatherType = (temperature) => {
         return 'cold';
       }
 }
+

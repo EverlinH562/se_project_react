@@ -9,7 +9,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
-    <BrowserRouter basename="/se_project_react">
+    <BrowserRouter basename="/se_project_react"
+    future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    }}
+    >
       <App />
     </BrowserRouter>
   </StrictMode>

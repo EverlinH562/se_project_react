@@ -16,7 +16,10 @@ function ModalWithForm({
           onClick={onClose}
           type="button"
           className="modal__close-btn"
-        ></button>
+          aria-label="Close modal"
+        >
+          ×
+        </button>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
           <button type="submit" className="modal__submit">

@@ -4,33 +4,32 @@ import "./ItemCard.css";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
+  const isLoggedIn = !!currentUser?._id;
+  const isLiked = item.likes.some((id) => id === currentUser?._id);
 
   const handleCardClick = () => {
-    onCardClick(item);
+    console.log("Card clicked:", item); 
+    if (onCardClick) onCardClick(item);
   };
 
-  const isLoggedIn = !!currentUser?._id;
-
-   const isLiked = item.likes.some((id) => id === currentUser?._id);
+  const handleLike = () => {
+    if (onCardLike) onCardLike(item);
+  };
 
   const itemLikeButtonClassName = `card__like-button ${
     isLiked ? "card__like-button_liked" : ""
   }`;
 
-  const handleLike = () => {
-    onCardLike(item);
-  };
-
   return (
     <li className="card">
       <h2 className="card__name">{item.name}</h2>
-       {currentUser && (
-               <button
-          className={`card__like-button ${isLiked ? "card__like-button_liked" : ""}`}
+      {isLoggedIn && (
+        <button
+          className={itemLikeButtonClassName}
           onClick={handleLike}
           type="button"
         />
-        )}
+      )}
       <img
         onClick={handleCardClick}
         className="card__image"
@@ -38,7 +37,6 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         alt={item.name}
       />
     </li>
-    
   );
 }
 

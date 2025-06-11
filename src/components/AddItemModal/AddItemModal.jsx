@@ -23,7 +23,7 @@ export default function AddItemModal({
     setWeather(e.target.value);
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     setName("");
     setImageUrl("");
     setWeather("");
@@ -39,6 +39,7 @@ export default function AddItemModal({
       buttonText="Add garment"
       title="New garment"
       isOpen={isOpen}
+      onClose={onClose} // ← Add this line
       onSubmit={handleSubmit}
     >
       <label htmlFor="name" className="modal__label">

@@ -1,7 +1,10 @@
 const baseUrl = "http://localhost:3001";
 
- const handleServerResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+const handleServerResponse = (res) => {
+  if (!res.ok) {
+    return res.json().then((err) => Promise.reject(err));
+  }
+  return res.json();
 };
 
 const request = (url, options = {}) => {
@@ -15,7 +18,7 @@ const request = (url, options = {}) => {
 };
 
 const getItems = () => {
-  return fetch(`${baseUrl}/items`).then(handleServerResponse);
+ return fetch(`${baseUrl}/items`).then(handleServerResponse);
 };
 
 const addItem = ({ name, imageUrl, weather }, token) => {
@@ -79,6 +82,21 @@ const removeCardLike = (id, token) => {
   }).then(handleServerResponse);
 };
 
+
+const signup = (user) => {
+  return fetch("http://localhost:3001/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  }).then((res) => {
+    if (!res.ok) {
+      return res.json().then(err => Promise.reject(err));
+    }
+    return res.json();
+  });
+};
+
+
 export {
   getItems,
   addItem,
@@ -89,4 +107,5 @@ export {
   addCardLike,
   removeCardLike,
   handleServerResponse,
+  signup
 };
