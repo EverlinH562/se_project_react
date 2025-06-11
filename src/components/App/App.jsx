@@ -63,21 +63,21 @@ function App() {
   const handleAddClick = () => setActiveModal("add-garment");
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    const token = localStorage.getItem("jwt");
-    addItem({ name, imageUrl, weather })
-      .then((savedItem) => {
-        setClothingItems((prev) => [
-          {
-            ...savedItem,
-            link: savedItem.link || savedItem.imageUrl,
-            _id: savedItem._id || savedItem.id,
-          },
-          ...prev,
-        ]);
-        closeModal();
-      })
-      .catch((err) => console.error("Failed to add item:", err));
-  };
+  const token = localStorage.getItem("jwt");
+  addItem({ name, imageUrl, weather }, token) 
+    .then((savedItem) => {
+      setClothingItems((prev) => [
+        {
+          ...savedItem,
+          link: savedItem.link || savedItem.imageUrl,
+          _id: savedItem._id || savedItem.id,
+        },
+        ...prev,
+      ]);
+      closeModal();
+    })
+    .catch((err) => console.error("Failed to add item:", err));
+};
 
   const handleCardDelete = () => {
     const token = localStorage.getItem("jwt");
@@ -92,10 +92,10 @@ function App() {
   };
 
   const handleRegister = ({ email, password, name, avatar }) => {
-  register({ email, password, name, avatar })
-    .then(() => handleLogin({ email, password }))
-    .catch((err) => console.error("Registration failed:", err));
-};
+    register({ email, password, name, avatar })
+      .then(() => handleLogin({ email, password }))
+      .catch((err) => console.error("Registration failed:", err));
+  };
   const handleLogin = ({ email, password }) => {
     authorize({ email, password })
       .then((res) => {
@@ -115,36 +115,36 @@ function App() {
   };
 
   const handleCardLike = ({ _id, likes }) => {
-  const token = localStorage.getItem("jwt");
-  const isLiked = likes.includes(currentUser._id);
+    const token = localStorage.getItem("jwt");
+    const isLiked = likes.includes(currentUser._id);
 
-  const likeAction = isLiked ? removeCardLike : addCardLike;
+    const likeAction = isLiked ? removeCardLike : addCardLike;
 
-  likeAction(_id, token)
-    .then((updatedCard) => {
-      setClothingItems((cards) =>
-        cards.map((item) => (item._id === _id ? updatedCard : item))
-      );
-    })
-    .catch((err) => console.log("Error handling like:", err));
-};
+    likeAction(_id, token)
+      .then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) => (item._id === _id ? updatedCard : item))
+        );
+      })
+      .catch((err) => console.log("Error handling like:", err));
+  };
 
- useEffect(() => {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const coords = {
-        lat: position.coords.latitude,
-        lon: position.coords.longitude,
-      };
-      getWeather(coords, APIkey)
-        .then((data) => setWeatherData(filterWeatherData(data)))
-        .catch(console.error);
-    },
-    (error) => {
-      console.error("Error getting location:", error);
-    }
-  );
-}, []);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        };
+        getWeather(coords, APIkey)
+          .then((data) => setWeatherData(filterWeatherData(data)))
+          .catch(console.error);
+      },
+      (error) => {
+        console.error("Error getting location:", error);
+      }
+    );
+  }, []);
 
   useEffect(() => {
     getItems()
@@ -222,7 +222,7 @@ function App() {
                       onCardClick={handleCardClick}
                       onAddClick={handleAddClick}
                       onEditProfile={() => setIsEditProfileOpen(true)}
-                      onLogout={handleLogout} 
+                      onLogout={handleLogout}
                     />
                   </ProtectedRoute>
                 }
@@ -250,8 +250,9 @@ function App() {
             />
             <LoginModal
               isOpen={activeModal === "login"}
-              onClose={closeModal}
-              onLogin={handleLogin}
+              handleCloseModal={closeModal}
+              onSubmit={handleLogin} 
+              onSignUp={() => setActiveModal("register")} 
             />
             <EditProfileModal
               isOpen={isEditProfileOpen}

@@ -1,8 +1,12 @@
 const baseUrl = "http://localhost:3001";
 
 const handleServerResponse = (res) => {
+  const contentType = res.headers.get("content-type");
   if (!res.ok) {
-    return res.json().then((err) => Promise.reject(err));
+    if (contentType && contentType.includes("application/json")) {
+      return res.json().then((err) => Promise.reject(err));
+    }
+    return res.text().then((text) => Promise.reject({ message: text }));
   }
   return res.json();
 };
@@ -40,10 +44,10 @@ const deleteItem = (itemId, token) => {
   });
 };
 
-const register = ({ email, password, name }) => {
+const register = ({ email, password, name, avatar }) => {
   return request(`${baseUrl}/signup`, {
     method: "POST",
-    body: JSON.stringify({ email, password, name }),
+    body: JSON.stringify({ email, password, name, avatar }), 
   });
 };
 
@@ -95,6 +99,7 @@ const signup = (user) => {
     return res.json();
   });
 };
+
 
 
 export {
