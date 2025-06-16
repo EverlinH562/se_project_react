@@ -1,12 +1,8 @@
 const baseUrl = "http://localhost:3001";
 
 const handleServerResponse = (res) => {
-  const contentType = res.headers.get("content-type");
   if (!res.ok) {
-    if (contentType && contentType.includes("application/json")) {
-      return res.json().then((err) => Promise.reject(err));
-    }
-    return res.text().then((text) => Promise.reject({ message: text }));
+    throw new Error(`API Error: ${res.status}`);
   }
   return res.json();
 };
@@ -51,7 +47,7 @@ const register = ({ email, password, name, avatar }) => {
   });
 };
 
-const authorize = ({ email, password }) => {
+const authorize = (email, password) => {
   return request(`${baseUrl}/signin`, {
     method: "POST",
     body: JSON.stringify({ email, password }),

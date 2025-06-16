@@ -44,39 +44,38 @@ function Header({ handleAddClick, weatherData, loggedIn, setActiveModal }) {
 
       <ToggleSwitch />
       {loggedIn && (
-  <button
-    onClick={handleAddClick}
-    type="button"
-    className="header__add-clothes-btn"
-  >
-    + Add clothes
-  </button>
-)}
+        <button
+          onClick={handleAddClick}
+          type="button"
+          className="header__add-clothes-btn"
+        >
+          + Add clothes
+        </button>
+      )}
 
-{loggedIn ? (
-  <Link to="/profile" className="header__link">
-    <div className="header__user-container">
-      <p className="header__username">{currentUser?.name}</p>
-      {renderAvatar()}
-    </div>
-  </Link>
-) : (
-  <div className="header__auth-links">
-    <button
-      className="header__auth-btn"
-      onClick={() => setActiveModal("login")}
-    >
-      Log In
-    </button>
-    <button
-      className="header__auth-btn"
-      onClick={() => setActiveModal("register")}
-    >
-      Sign Up
-    </button>
-  </div>
-)}
-      
+      {loggedIn ? (
+        <Link to="/profile" className="header__link">
+          <div className="header__user-container">
+            <p className="header__username">{currentUser?.name}</p>
+            {renderAvatar()}
+          </div>
+        </Link>
+      ) : (
+        <div className="navigation__button">
+          <button
+            className="navigation__button"
+            onClick={() => setActiveModal("login")}
+          >
+            Log In
+          </button>
+          <button
+            className="navigation__button"
+            onClick={() => setActiveModal("register")}
+          >
+            Sign Up
+          </button>
+        </div>
+      )}
     </header>
   );
 }

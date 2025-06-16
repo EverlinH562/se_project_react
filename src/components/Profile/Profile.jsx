@@ -1,23 +1,19 @@
 import ClothesSection from "../ClothesSection/ClothesSection.jsx";
-import Sidebar from "../SideBar/SideBar.jsx";
+import SideBar from "../SideBar/SideBar.jsx";
 import "./Profile.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
+import { useContext } from "react";
 
-function Profile({ clothingItems, onCardClick, onAddClick, onEditProfile, onLogout }) {
+function Profile ({ handleCardClick, clothingItems, handleAddClick, handleDeleteClick, handleEditProfileClick, handleSignOutClick, handleCardLike, handleRemoveCardLike }) {
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <Sidebar />
+        <SideBar handleEditProfileClick={handleEditProfileClick} handleSignOutClick={handleSignOutClick}/>
       </section>
       <section className="profile__clothing-items">
-        <ClothesSection
-          clothingItems={clothingItems}
-          onCardClick={onCardClick}
-          onAddClick={onAddClick}
-        />
-         <button onClick={onAddClick}>Edit Profile</button>
-        <button onClick={onLogout} className="profile__logout-button">
-          Sign out
-        </button>
+        <ClothesSection  clothingItems={clothingItems} handleCardClick={handleCardClick} handleAddClick={handleAddClick} handleDeleteClick={handleDeleteClick} />
       </section>
     </div>
   );

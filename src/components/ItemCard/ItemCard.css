@@ -1,17 +1,10 @@
 .card {
-  align-items: center;
   display: flex;
-  max-width: 325px;
-  max-height: 328px;
-  position: relative;
-  cursor: pointer;
   justify-content: center;
-  flex-wrap: wrap;
-  list-style-type: none;
-  background-image: url(../../assets/closeIconGrey.svg) no-repeat;
-  border: 1px solid black;
-  border-radius: 20px;
-  padding: 0;
+  width: 323px;
+  height: 326px;
+  position: relative;
+  border-radius: 8px;
 }
 
 .card__name {

@@ -1,34 +1,39 @@
+import React from "react";
 import "./ModalWithForm.css";
 
-function ModalWithForm({
+const ModalWithForm = ({
+  title,
   children,
   buttonText,
-  title,
-  isOpen,
   onClose,
+  isOpen,
+  formValid,
   onSubmit,
-}) {
+}) => {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
-        <button
-          onClick={onClose}
-          type="button"
-          className="modal__close-btn"
-          aria-label="Close modal"
-        >
-          ×
+        <button className="modal__close" type="button" onClick={onClose}>
+          <img src="src\assets\closebtn.svg" alt="Close" />
         </button>
-        <form onSubmit={onSubmit} className="modal__form">
+        <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit">
+          <button
+            className="modal__submit"
+            type="submit"
+            disabled={!formValid}
+          >
             {buttonText}
           </button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default ModalWithForm;
+
+
+   
+      

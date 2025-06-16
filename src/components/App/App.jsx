@@ -63,21 +63,21 @@ function App() {
   const handleAddClick = () => setActiveModal("add-garment");
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-  const token = localStorage.getItem("jwt");
-  addItem({ name, imageUrl, weather }, token) 
-    .then((savedItem) => {
-      setClothingItems((prev) => [
-        {
-          ...savedItem,
-          link: savedItem.link || savedItem.imageUrl,
-          _id: savedItem._id || savedItem.id,
-        },
-        ...prev,
-      ]);
-      closeModal();
-    })
-    .catch((err) => console.error("Failed to add item:", err));
-};
+    const token = localStorage.getItem("jwt");
+    addItem({ name, imageUrl, weather }, token)
+      .then((savedItem) => {
+        setClothingItems((prev) => [
+          {
+            ...savedItem,
+            link: savedItem.link || savedItem.imageUrl,
+            _id: savedItem._id || savedItem.id,
+          },
+          ...prev,
+        ]);
+        closeModal();
+      })
+      .catch((err) => console.error("Failed to add item:", err));
+  };
 
   const handleCardDelete = () => {
     const token = localStorage.getItem("jwt");
@@ -92,20 +92,26 @@ function App() {
   };
 
   const handleRegister = ({ email, password, name, avatar }) => {
-    register({ email, password, name, avatar })
-      .then(() => handleLogin({ email, password }))
+  return register({ email, password, name, avatar }) 
+    .then(() => {
+      return handleLogin({ email, password }); 
+      })
       .catch((err) => console.error("Registration failed:", err));
   };
+
   const handleLogin = ({ email, password }) => {
-    authorize({ email, password })
+    return authorize(email, password)
       .then((res) => {
-        if (res.token) {
-          localStorage.setItem("jwt", res.token);
-          setLoggedIn(true);
-          closeModal();
-        }
+        localStorage.setItem("jwt", res.token);
+        setLoggedIn(true);
+        return getUserInfo(res.token);
       })
-      .catch((err) => console.error("Login failed:", err));
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
+      });
   };
 
   const handleLogout = () => {
@@ -116,8 +122,9 @@ function App() {
 
   const handleCardLike = ({ _id, likes }) => {
     const token = localStorage.getItem("jwt");
-    const isLiked = likes.includes(currentUser._id);
+    if (!currentUser) return;
 
+    const isLiked = likes.includes(currentUser._id);
     const likeAction = isLiked ? removeCardLike : addCardLike;
 
     likeAction(_id, token)
@@ -130,21 +137,14 @@ function App() {
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const coords = {
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        };
-        getWeather(coords, APIkey)
-          .then((data) => setWeatherData(filterWeatherData(data)))
-          .catch(console.error);
-      },
-      (error) => {
-        console.error("Error getting location:", error);
-      }
-    );
-  }, []);
+  getWeather(coordinates, APIkey)
+    .then((data) => {
+      const filteredData = filterWeatherData(data);
+      setWeatherData(filteredData);
+    })
+    .catch(console.error);
+}, []);
+
 
   useEffect(() => {
     getItems()
@@ -235,7 +235,7 @@ function App() {
               onAddItemModalSubmit={handleAddItemModalSubmit}
             />
             <ItemModal
-              activeModal={activeModal}
+              isOpen={activeModal === 'preview'}
               card={selectedCard}
               onClose={closeModal}
               onDelete={handleCardDelete}
@@ -251,8 +251,8 @@ function App() {
             <LoginModal
               isOpen={activeModal === "login"}
               handleCloseModal={closeModal}
-              onSubmit={handleLogin} 
-              onSignUp={() => setActiveModal("register")} 
+              onSubmit={handleLogin}
+              onSignUp={() => setActiveModal("register")}
             />
             <EditProfileModal
               isOpen={isEditProfileOpen}

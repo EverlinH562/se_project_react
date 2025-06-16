@@ -39,7 +39,7 @@ export default function AddItemModal({
       buttonText="Add garment"
       title="New garment"
       isOpen={isOpen}
-      onClose={onClose} // ← Add this line
+      onClose={onClose} 
       onSubmit={handleSubmit}
     >
       <label htmlFor="name" className="modal__label">

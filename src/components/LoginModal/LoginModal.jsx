@@ -4,12 +4,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../utils/useFormAndValidation";
 
 const LoginModal = ({ handleCloseModal, onSubmit, isOpen, onSignUp }) => {
-  const { values, handleChange, isValid, resetForm } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     onSubmit(values)
       .then(() => {
         handleCloseModal();
@@ -42,6 +42,7 @@ const LoginModal = ({ handleCloseModal, onSubmit, isOpen, onSignUp }) => {
           onChange={handleChange}
           required
         />
+        <span className="modal__error">{errors.email}</span>
       </label>
       <label htmlFor="login-password" className="modal__label">
         Password*{" "}
@@ -55,6 +56,7 @@ const LoginModal = ({ handleCloseModal, onSubmit, isOpen, onSignUp }) => {
           onChange={handleChange}
           required
         />
+        <span className="modal__error">{errors.password}</span>
       </label>
       <div className="modal__button-container">
         <button className="modal__to-register" type="button" onClick={onSignUp}>
