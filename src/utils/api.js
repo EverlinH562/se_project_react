@@ -18,7 +18,7 @@ const request = (url, options = {}) => {
 };
 
 const getItems = () => {
- return fetch(`${baseUrl}/items`).then(handleServerResponse);
+  return fetch(`${baseUrl}/items`).then(handleServerResponse);
 };
 
 const addItem = ({ name, imageUrl, weather }, token) => {
@@ -43,15 +43,16 @@ const deleteItem = (itemId, token) => {
 const register = ({ email, password, name, avatar }) => {
   return request(`${baseUrl}/signup`, {
     method: "POST",
-    body: JSON.stringify({ email, password, name, avatar }), 
+    body: JSON.stringify({ email, password, name, avatar }),
   });
 };
 
 const authorize = (email, password) => {
-  return request(`${baseUrl}/signin`, {
+  return fetch("http://localhost:3001/signin", {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
-  });
+  }).then(handleServerResponse);
 };
 
 const updateUser = ({ name, avatar }, token) => {
@@ -69,6 +70,7 @@ const addCardLike = (id, token) => {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   }).then(handleServerResponse);
 };
@@ -82,7 +84,6 @@ const removeCardLike = (id, token) => {
   }).then(handleServerResponse);
 };
 
-
 const signup = (user) => {
   return fetch("http://localhost:3001/signup", {
     method: "POST",
@@ -90,13 +91,18 @@ const signup = (user) => {
     body: JSON.stringify(user),
   }).then((res) => {
     if (!res.ok) {
-      return res.json().then(err => Promise.reject(err));
+      return res.json().then((err) => Promise.reject(err));
     }
     return res.json();
   });
 };
 
-
+const signin = (email, password) => {
+  return request("http://localhost:3001/signin", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
+};
 
 export {
   getItems,
@@ -108,5 +114,6 @@ export {
   addCardLike,
   removeCardLike,
   handleServerResponse,
-  signup
+  signup,
+  signin
 };

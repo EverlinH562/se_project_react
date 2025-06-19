@@ -29,7 +29,11 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 
 import { getUserInfo } from "../../utils/auth";
 
+import { useNavigate } from "react-router-dom";
+
 function App() {
+  const navigate = useNavigate();
+
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: 999, C: 999 },
@@ -41,6 +45,7 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   const [loggedIn, setLoggedIn] = useState(false);
@@ -57,7 +62,7 @@ function App() {
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
-    setActiveModal("preview");
+    setIsPreviewOpen(true);
   };
 
   const handleAddClick = () => setActiveModal("add-garment");
@@ -92,32 +97,32 @@ function App() {
   };
 
   const handleRegister = ({ email, password, name, avatar }) => {
-  return register({ email, password, name, avatar }) 
-    .then(() => {
-      return handleLogin({ email, password }); 
+    return register({ email, password, name, avatar })
+      .then(() => {
+        return handleLogin({ email, password });
       })
       .catch((err) => console.error("Registration failed:", err));
   };
 
   const handleLogin = ({ email, password }) => {
-    return authorize(email, password)
+    return authorize(email, password) 
       .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setLoggedIn(true);
-        return getUserInfo(res.token);
+        localStorage.setItem("jwt", res.token); 
+        setLoggedIn(true); 
+        return getUserInfo(res.token); 
       })
       .then((userData) => {
-        setCurrentUser(userData);
+        setCurrentUser(userData); 
       })
       .catch((err) => {
-        console.error("Login failed:", err);
+        console.error("Login failed:", err); 
       });
   };
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
-    setLoggedIn(false);
     setCurrentUser(null);
+    navigate("/");
   };
 
   const handleCardLike = ({ _id, likes }) => {
@@ -137,14 +142,13 @@ function App() {
   };
 
   useEffect(() => {
-  getWeather(coordinates, APIkey)
-    .then((data) => {
-      const filteredData = filterWeatherData(data);
-      setWeatherData(filteredData);
-    })
-    .catch(console.error);
-}, []);
-
+    getWeather(coordinates, APIkey)
+      .then((data) => {
+        const filteredData = filterWeatherData(data);
+        setWeatherData(filteredData);
+      })
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
     getItems()
@@ -235,7 +239,7 @@ function App() {
               onAddItemModalSubmit={handleAddItemModalSubmit}
             />
             <ItemModal
-              isOpen={activeModal === 'preview'}
+              isOpen={activeModal === "preview"}
               card={selectedCard}
               onClose={closeModal}
               onDelete={handleCardDelete}
